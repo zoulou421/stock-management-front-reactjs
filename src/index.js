@@ -1,30 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import ListCase from './components/ListCase';
-import AddCase from './components/AddCase';
-import CaseByCity from './components/CaseByCity';
+import ReactDOM from 'react-dom/client';
+/*const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);*/
 
-
-const routing = (
-  <Router>
-    <div>
-      <Routes>
-        <Route path="/" component={App} />
-        <Route path="/case/list" component={ListCase} />
-        <Route path="/case/add" component={AddCase} />
-        <Route path="/case/caseByCity" component={CaseByCity} />
-      </Routes>
-    </div>
-  </Router>
-)
-
+//ReactDOM.render(routing, document.getElementById('root'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  routing
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
