@@ -1,82 +1,29 @@
 import React, { Component } from 'react';
 
-class AddCase extends Component {
+class EditCase extends Component {
 
 
-    /* constructor(props) {
-         super(props);
-         this.state = {
-             ville: '',
-             quartier: '',
-             date: '',
-             listeCas: []
-         }
-         this.handleChangeVille = this.handleChangeVille.bind(this);
-         this.handleChangeQuartier = this.handleChangeQuartier.bind(this);
-         this.handleChangeDate = this.handleChangeDate.bind(this);
- 
-         this.handleAdd = this.handleAdd(this);
-     };
- 
-    
-     handleChangeVille(event) {
-         this.setState({
-             ville: event.target.value
-         });
-     }
- 
-     handleChangeQuartier(event) {
-         this.setState({
-             quartier: event.target.value
-         });
-     }
-     handleChangeDate(event) {
-         this.setState({
-             date: event.target.value
-         });
-     }
- 
-     handleAdd = (event) => {
-         event.preventDefault();
-         const requestOptions = {
-             method: 'POST',
-             headers: { 'Content-Type': 'Application/json' },
-             body: JSON.stringify({ title: 'React Post Request Example' })
-         };
-         try {
-             fetch("http://localhost:8080/corona/cas/save?ville=" + this.state.ville + "&quartier=" + this.state.quartier + "&datecas=" + this.state.date, requestOptions)
-                 .then(result => result.json())
-                 .then(result => {
-                     this.setState({
-                         ville: '',
-                         quartier: '',
-                         date: '',
-                         listeCas: result
-                     });
-                     //console.log(result[0])
-                     console.log(result[0])
-                     console.log("Ville" + this.state.listeCas);
-                 })
-         } catch (error) {
-             console.log("connexion API impossible" + error);
-         }
- 
-     }*/
     constructor(props) {
         super(props);
         this.state = {
+            id: 0,
             ville: '',
             quartier: '',
             date: '',
             listeCas: []
         }
 
+        this.handleChangeId = this.handleChangeId.bind(this);
         this.handleChangeVille = this.handleChangeVille.bind(this);
         this.handleChangeQuartier = this.handleChangeQuartier.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
 
     };
-
+    handleChangeId(event) {
+        this.setState({
+            id: event.target.value
+        });
+    }
 
     handleChangeVille(event) {
         this.setState({
@@ -95,19 +42,37 @@ class AddCase extends Component {
         });
     }
 
-
-    handleAdd(event) {
-        event.preventDefault();
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'Application/json' },
-            body: JSON.stringify({ title: 'React Post Request Example' })
-        };
+    componentDidMount() {
         try {
-            fetch("http://localhost:8080/corona/cas/save?ville=" + this.state.ville + "&quartier=" + this.state.quartier + "&datecas=" + this.state.date, requestOptions)
+            fetch("http://localhost:8080/corona/cas/get/?id=" + this.props.match.params.id)
                 .then(result => result.json())
                 .then(result => {
                     this.setState({
+                        id: result.id,
+                        ville: result.ville,
+                        quartier: result.quartier,
+                        date: result.date,
+                        listeCas: result
+                    });
+                });
+
+        } catch (error) {
+            console.log("Impossible to fetch" + error)
+        }
+    }
+    handleAdd(event) {
+        event.preventDefault();
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'Application/json' },
+            body: JSON.stringify({ title: 'React Get Request Example' })
+        };
+        try {
+            fetch("http://localhost:8080/corona/cas/update/" + this.state.id + "?ville=" + this.state.ville + "&quartier=" + this.state.quartier + "&datecas=" + this.state.date, requestOptions)
+                .then(result => result.json())
+                .then(result => {
+                    this.setState({
+                        id: 0,
                         ville: '',
                         quartier: '',
                         date: '',
@@ -134,6 +99,11 @@ class AddCase extends Component {
                         {console.log(this.state.ville)}
                         <form onSubmit={this.handleAdd}>
                             <div className="form-group col-xl-6">
+                                <label className="control-label" htmlFor="nom">Id</label>
+                                <input type="text" name="id" readOnly="readOnly" className="form-control" value={this.state.id} onChange={this.handleChangeId} />
+                            </div>
+
+                            <div className="form-group col-xl-6">
                                 <label className="control-label" htmlFor="nom">Ville</label>
                                 <input type="text" name="ville" className="form-control" value={this.state.ville} onChange={this.handleChangeVille} />
                             </div>
@@ -159,5 +129,5 @@ class AddCase extends Component {
     }
 }
 
-export default AddCase;
+export default EditCase;
 

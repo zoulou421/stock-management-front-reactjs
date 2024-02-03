@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class ListCase extends Component {
+export default class DeleteCase extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -9,14 +9,18 @@ export default class ListCase extends Component {
     }
 
     componentDidMount() {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'Application/json' },
+            body: JSON.stringify({ title: 'React Delete Request Example' })
+        };
         try {
-            fetch("http://localhost:8080/corona/cas")
+            fetch("http://localhost:8080/corona/cas/delete" + this.props.match.params.id, requestOptions)
                 .then(result => result.json())
                 .then(result => {
                     this.setState({
                         listCas: result
                     });
-                    console.log(this.state.listCas)
                 });
 
         } catch (error) {
@@ -50,14 +54,18 @@ export default class ListCase extends Component {
                                         <td><a href={"/cas/get/" + cas.id}></a>Edit</td>
                                         <td><a href={"/cas/delete/" + cas.id}></a>delete</td>
                                     </tr>
-
                                 )
-
                             })
                         }
                     </tbody>
-                </table>
-            </div>
+                </table >
+            </div >
         )
     }
 }
+
+
+
+
+
+
