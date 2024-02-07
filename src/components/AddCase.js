@@ -75,6 +75,9 @@ class AddCase extends Component {
         this.handleChangeQuartier = this.handleChangeQuartier.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
 
+
+        this.handleAdd = this.handleAdd.bind(this);
+
     };
 
 
