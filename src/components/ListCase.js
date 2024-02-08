@@ -40,15 +40,15 @@ export default class ListCase extends Component {
 
                     <tbody>
                         {
-                            this.state.listCas.map(function (cas) {
+                            this.state.listCas.map(function (cas, i) {
                                 return (
-                                    <tr>
+                                    <tr key={i}>
                                         <td>{cas.id}</td>
                                         <td>{cas.ville}</td>
                                         <td>{cas.quartier}</td>
                                         <td>{cas.date}</td>
-                                        <td><a href={"/cas/get/" + cas.id}></a>Edit</td>
-                                        <td><a href={"/cas/delete/" + cas.id}></a>delete</td>
+                                        <td><a href={"/cas/get/" + cas.id}>Edit</a></td>
+                                        <td><a href={"/cas/delete/" + cas.id}>Delete</a></td>
                                     </tr>
 
                                 )

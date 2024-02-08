@@ -14,9 +14,12 @@ class EditCase extends Component {
         }
 
         this.handleChangeId = this.handleChangeId.bind(this);
+
         this.handleChangeVille = this.handleChangeVille.bind(this);
         this.handleChangeQuartier = this.handleChangeQuartier.bind(this);
         this.handleChangeDate = this.handleChangeDate.bind(this);
+
+        this.handleAdd = this.handleAdd.bind(this);
 
     };
     handleChangeId(event) {
@@ -54,6 +57,7 @@ class EditCase extends Component {
                         date: result.date,
                         listeCas: result
                     });
+                    console.log("recupération de l id contact" + this.props.match.params.id)
                 });
 
         } catch (error) {

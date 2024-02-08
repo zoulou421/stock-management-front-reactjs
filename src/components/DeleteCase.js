@@ -1,37 +1,33 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-export default class DeleteCase extends Component {
+class DeleteCase extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listCas: []
+            listeCas: []
         }
     }
 
     componentDidMount() {
         const requestOptions = {
             method: 'DELETE',
-            headers: { 'Content-Type': 'Application/json' },
-            body: JSON.stringify({ title: 'React Delete Request Example' })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: 'React POST Request Example' })
         };
-        try {
-            fetch("http://localhost:8080/corona/cas/delete" + this.props.match.params.id, requestOptions)
-                .then(result => result.json())
-                .then(result => {
-                    this.setState({
-                        listCas: result
-                    });
+        fetch("http://localhost:8080/corona/cas/delete/" + this.props.match.params.id, requestOptions)
+            .then(result => result.json())
+            .then(result => {
+                this.setState({
+                    listeCas: result
                 });
 
-        } catch (error) {
-            console.log("Impossible to fetch" + error)
-        }
+            });
     }
 
     render() {
         return (
             <div className="container-fluid" style={{ marginTop: 50 }}>
-                <table className="table table-bordered table-striped">
+                <table className={"table table-bordered table-striped"}>
                     <thead>
                         <tr>
                             <th>Identifiant</th>
@@ -39,33 +35,29 @@ export default class DeleteCase extends Component {
                             <th>Quartier</th>
                             <th>Date</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {
-                            this.state.listCas.map(function (cas) {
+                            this.state.listeCas.map(function (cas) {
                                 return (
                                     <tr>
                                         <td>{cas.id}</td>
                                         <td>{cas.ville}</td>
                                         <td>{cas.quartier}</td>
                                         <td>{cas.date}</td>
-                                        <td><a href={"/cas/get/" + cas.id}></a>Edit</td>
-                                        <td><a href={"/cas/delete/" + cas.id}></a>delete</td>
+                                        <td><a href={"/cas/get/" + cas.id}>Editer</a></td>
+                                        <td><a href={"/cas/delete/" + cas.id}>Supprimer</a></td>
                                     </tr>
                                 )
                             })
                         }
                     </tbody>
-                </table >
-            </div >
-        )
+                </table>
+            </div>
+        );
     }
 }
 
-
-
-
-
-
+export default DeleteCase;

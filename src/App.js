@@ -4,6 +4,9 @@ import './App.css';
 import AddCase from './components/AddCase';
 import CaseByCity from './components/CaseByCity';
 import ListCase from './components/ListCase';
+import EditCase from "./components/EditCase";
+import DeleteCase from "./components/DeleteCase";
+import { render } from "react-dom";
 
 function App() {
 
@@ -20,13 +23,13 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/case/list">List</a>
+                <a className="nav-link" href="/cas/list">List</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/case/add">Add</a>
+                <a className="nav-link" href="/cas/add">Add</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/case/caseByCity" >Case by City</a>
+                <a className="nav-link" href="/cas/caseByCity" >Case by City</a>
               </li>
             </ul>
           </div>
@@ -34,9 +37,11 @@ function App() {
       </nav>
       <div className="container">
         <Routes>
-          <Route path="/case/list" element={<ListCase />} />
-          <Route path="/case/add" element={<AddCase />} />
-          <Route path="/case/caseByCity" element={<CaseByCity />} />
+          <Route path="/cas/list" element={<ListCase />} />
+          <Route path="/cas/add" element={<AddCase />} />
+          <Route path="/cas/caseByCity" element={<CaseByCity />} />
+          <Route path="/cas/delete/:id" element={<DeleteCase />} />
+          <Route path="/cas/get/:id" element={<EditCase />} />
         </Routes>
       </div>
 
